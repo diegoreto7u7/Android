@@ -1,0 +1,89 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Registro"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E0E0E0"
+        android:hint="E-mail"
+        android:padding="12dp"
+        android:textColor="#000000" />
+
+    <EditText
+        android:id="@+id/nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E0E0E0"
+        android:hint="Nombre"
+        android:padding="12dp"
+        android:textColor="#000000"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/apellido1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Primer Apellido"
+        android:padding="12dp"
+        android:background="#E0E0E0"
+        android:textColor="#000000"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/apellido2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Segundo Apellido"
+        android:padding="12dp"
+        android:background="#E0E0E0"
+        android:textColor="#000000"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/direccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Direccion"
+        android:padding="12dp"
+        android:background="#E0E0E0"
+        android:textColor="#000000"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:background="#E0E0E0"
+        android:textColor="#000000"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrarse"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#68B3F2"
+        android:textColor="#FFFFFF"
+        android:padding="12dp"
+        android:fontFamily="sans-serif-medium" />
+</LinearLayout>

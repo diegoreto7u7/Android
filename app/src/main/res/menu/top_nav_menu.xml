@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_videojuegos"
+        android:title="Videojuegos" />
+
+    <item
+        android:id="@+id/navigation_consolas"
+        android:title="Consolas" />
+
+    <item
+        android:id="@+id/navigation_tablets"
+        android:title="Tablets" />
+
+    <item
+        android:id="@+id/navigation_cesta"
+        android:title="Cesta" />
+
+</menu>

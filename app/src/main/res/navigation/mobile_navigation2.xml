@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@id/navigation_videojuegos">
+    <fragment
+        android:id="@+id/navigation_videojuegos"
+        android:name="com.dam2.reto.ui.videojuegos.videojuegosFragment"
+        android:label="fragment_videojuegos"
+        tools:layout="@layout/fragment_videojuegos" />
+    <fragment
+        android:id="@+id/navigation_consolas"
+        android:name="com.dam2.reto.ui.videojuegos.videojuegosFragment"
+        android:label="fragment_consolas"
+        tools:layout="@layout/fragment_consolas" />
+    <fragment
+        android:id="@+id/navigation_tablets"
+        android:name="com.dam2.reto.ui.videojuegos.videojuegosFragment"
+        android:label="fragment_tablets"
+        tools:layout="@layout/fragment_tablets" />
+    <fragment
+        android:id="@+id/navigation_cesta"
+        android:name="com.dam2.reto.ui.videojuegos.videojuegosFragment"
+        android:label="fragment_cesta"
+        tools:layout="@layout/fragment_cesta" />
+</navigation>

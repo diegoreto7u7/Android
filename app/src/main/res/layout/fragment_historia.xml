@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/juegalmi"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Desde sus inicios, JuegAlmi ha sido el punto de encuentro para los apasionados de los videojuegos en la ciudad. Fundada en 2015 por un grupo de amigos gamers que querían ofrecer algo más que una tienda, JuegAlmi rápidamente se destacó por su ambiente acogedor y su variedad de productos. La tienda se especializa en la venta y alquiler de videojuegos, además de ofrecer un servicio de reparación profesional para consolas y dispositivos móviles como tablets y smartphones, siempre con un trato cercano y especializado que atrajo a una clientela fiel."
+            android:paddingTop="16dp"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sin embargo, con el paso de los años y la creciente demanda de sus servicios, JuegAlmi se ha visto en la necesidad de modernizarse para satisfacer las expectativas de sus clientes. Por eso, ha decidido crear su propia aplicación móvil, enfocada en optimizar su imagen y facilitar la gestión diaria de la tienda."
+            android:paddingTop="16dp"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="La app no solo permitirá a los usuarios comprar y alquilar videojuegos desde cualquier lugar, sino que también ofrecerá un sistema para gestionar la reparación de consolas y dispositivos móviles, brindando a los clientes la posibilidad de realizar un seguimiento de sus productos en tiempo real. Además, la app incluirá un catálogo actualizado, notificaciones de lanzamientos exclusivos y promociones especiales para sus usuarios."
+            android:paddingTop="16dp"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Así, JuegAlmi busca seguir consolidándose como líder en el mercado, aprovechando la tecnología para mejorar la experiencia de sus clientes y dar un paso adelante en el mundo de los videojuegos y las reparaciones."
+            android:paddingTop="16dp"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="."
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</ScrollView>
