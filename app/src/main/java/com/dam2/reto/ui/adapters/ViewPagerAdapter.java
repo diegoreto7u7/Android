@@ -9,6 +9,7 @@ import com.dam2.reto.ui.cesta.CestaFragment;
 import com.dam2.reto.ui.consolas.ConsolasFragment;
 import com.dam2.reto.ui.tablets.TabletsFragment;
 import com.dam2.reto.ui.videojuegos.videojuegosFragment;
+import com.dam2.reto.ui.parati.ParaTiFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     public ViewPagerAdapter(FragmentActivity fragment) {
@@ -20,15 +21,17 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return new videojuegosFragment();
+                return new ParaTiFragment();
             case 1:
-                return new ConsolasFragment();
+                return new videojuegosFragment();
             case 2:
-                return new TabletsFragment();
+                return new ConsolasFragment();
             case 3:
+                return new TabletsFragment();
+            case 4:
                 return new CestaFragment();
             default:
-                return new videojuegosFragment();
+                return new ParaTiFragment();
         }
     }
 

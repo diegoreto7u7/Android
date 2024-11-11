@@ -35,6 +35,9 @@ android {
 }
 
 dependencies {
+    implementation (libs.picasso)
+    implementation (libs.recyclerview)
+    implementation (libs.material.v140)
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
     implementation(libs.appcompat)

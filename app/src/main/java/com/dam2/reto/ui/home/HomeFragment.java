@@ -42,12 +42,14 @@ public class HomeFragment extends Fragment {
 
         new TabLayoutMediator(tabLayout,viewPager,(tab, position) -> {
             if (position == 0) {
-                tab.setText("Videojuegos");
+                tab.setText("Para ti");
             } else if (position == 1){
-                tab.setText("Consolas");
+                tab.setText("VideoJuegos");
             } else if (position == 2){
-                tab.setText("Tablets y Smartphones");
+                tab.setText("Consolas");
             } else if (position ==3){
+                tab.setText("Tablets y Smartphones");
+            } else if (position == 4){
                 tab.setText("Cesta");
             }
         }).attach();

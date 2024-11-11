@@ -14,4 +14,15 @@ public interface API {
     @POST("/auth")
     Call<Map<String, String>> authenticateUser(@Body Map<String, String> credentials);
 
+    @GET("/admin/productos/videojuegos")
+    Call<List<Map<String, Object>>> getVideojuegos();
+
+    @GET("/admin/productos/smartphones")
+    Call<List<Map<String, Object>>> getSmartphones();
+
+    @GET("/admin/productos/consolas")
+    Call<List<Map<String, Object>>> getConsolas();
+
+    @GET("/admin/producto/{id}")
+    Call<Map<String, Object>> getProductoById(@Path("id") int id);
 }
