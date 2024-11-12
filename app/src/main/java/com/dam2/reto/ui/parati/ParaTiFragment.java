@@ -22,8 +22,9 @@ import java.util.Map;
 public class ParaTiFragment extends Fragment {
 
     private ParaTiViewModel mViewModel;
-    private RecyclerView recyclerView;
-    private ProductoAdapter adapter;
+    private ProductoAdapter videojuegosAdapter;
+    private ProductoAdapter consolasAdapter;
+    private ProductoAdapter smartphonesAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -37,20 +38,28 @@ public class ParaTiFragment extends Fragment {
 
         mViewModel = new ViewModelProvider(this).get(ParaTiViewModel.class);
 
-        recyclerView = view.findViewById(R.id.recyclerViewProductos);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // Observar los datos de videojuegos
-        mViewModel.getVideojuegos().observe(getViewLifecycleOwner(), new Observer<List<Map<String, Object>>>() {
-            @Override
-            public void onChanged(List<Map<String, Object>> videojuegos) {
-                if (videojuegos != null) {
-                    adapter = new ProductoAdapter(getContext(), videojuegos);
-                    recyclerView.setAdapter(adapter);
-                }
-            }
+        // Configuración de RecyclerView para videojuegos
+        RecyclerView recyclerViewVideojuegos = view.findViewById(R.id.recyclerViewVideojuegos);
+        recyclerViewVideojuegos.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mViewModel.getVideojuegos().observe(getViewLifecycleOwner(), productos -> {
+            videojuegosAdapter = new ProductoAdapter(getContext(), productos);
+            recyclerViewVideojuegos.setAdapter(videojuegosAdapter);
         });
 
-        // Puedes añadir observadores similares para smartphones y consolas, o usar una lista combinada
+        // Configuración de RecyclerView para consolas
+        RecyclerView recyclerViewConsolas = view.findViewById(R.id.recyclerViewConsolas);
+        recyclerViewConsolas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mViewModel.getConsolas().observe(getViewLifecycleOwner(), productos -> {
+            consolasAdapter = new ProductoAdapter(getContext(), productos);
+            recyclerViewConsolas.setAdapter(consolasAdapter);
+        });
+
+        // Configuración de RecyclerView para smartphones
+        RecyclerView recyclerViewSmartphones = view.findViewById(R.id.recyclerViewSmartphones);
+        recyclerViewSmartphones.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mViewModel.getSmartphones().observe(getViewLifecycleOwner(), productos -> {
+            smartphonesAdapter = new ProductoAdapter(getContext(), productos);
+            recyclerViewSmartphones.setAdapter(smartphonesAdapter);
+        });
     }
 }

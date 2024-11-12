@@ -39,17 +39,17 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         Map<String, Object> producto = productos.get(position);
 
         holder.nombreProductoTextView.setText((String) producto.get("nombre_producto"));
-        holder.precioProductoTextView.setText("Precio: $" + producto.get("precio_venta"));
-        holder.descripcionTextView.setText((String) producto.get("descripcion"));
+        holder.precioProductoTextView.setText("Precio: €" + producto.get("precio_venta"));
 
-        String imagenUrl = (String) producto.get("imagenes");
-        if (imagenUrl != null && !imagenUrl.isEmpty()) {
-            String[] imagenes = new Gson().fromJson(imagenUrl, String[].class);
-            if (imagenes.length > 0) {
-                Picasso.get().load(imagenes[0]).into(holder.imagenProductoImageView);
-            }
+        List<String> imagenes = (List<String>) producto.get("imagenes");
+        if (imagenes != null && !imagenes.isEmpty()) {
+            Picasso.get()
+                    .load(imagenes.get(0))
+                    .error(R.drawable.kirby1)
+                    .into(holder.imagenProductoImageView);
         } else {
-            holder.imagenProductoImageView.setImageResource(R.drawable.ic_launcher_background);
+            // Si no hay URL de imagen, carga la imagen por defecto
+            holder.imagenProductoImageView.setImageResource(R.drawable.kirby1);
         }
     }
 
@@ -61,14 +61,12 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     public static class ProductoViewHolder extends RecyclerView.ViewHolder {
         TextView nombreProductoTextView;
         TextView precioProductoTextView;
-        TextView descripcionTextView;
         ImageView imagenProductoImageView;
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
             nombreProductoTextView = itemView.findViewById(R.id.nombreProductoTextView);
             precioProductoTextView = itemView.findViewById(R.id.precioProductoTextView);
-            descripcionTextView = itemView.findViewById(R.id.descripcionTextView);
             imagenProductoImageView = itemView.findViewById(R.id.imagenProductoImageView);
         }
     }

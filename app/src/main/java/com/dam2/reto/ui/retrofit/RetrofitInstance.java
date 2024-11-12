@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
 
-    private static final String BASE_URL = "https://adiweb.duckdns.org/";
+    private static final String BASE_URL = "https://adiapp.duckdns.org/";
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {
