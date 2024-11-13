@@ -49,7 +49,11 @@ public class HomeFragment extends Fragment {
                 tab.setText("Consolas");
             } else if (position ==3){
                 tab.setText("Tablets y Smartphones");
-            } else if (position == 4){
+
+            }
+            else if (position == 4){
+                tab.setText("Soporte Tecnico");
+            }else if (position == 5){
                 tab.setText("Cesta");
             }
         }).attach();

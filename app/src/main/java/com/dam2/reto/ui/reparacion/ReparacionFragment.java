@@ -1,4 +1,4 @@
-package com.dam2.reto.ui.videojuegos;
+package com.dam2.reto.ui.reparacion;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -14,24 +14,24 @@ import android.view.ViewGroup;
 
 import com.dam2.reto.R;
 
-public class videojuegosFragment extends Fragment {
+public class ReparacionFragment extends Fragment {
 
-    private VideojuegosViewModel mViewModel;
+    private ReparacionViewModel mViewModel;
 
-    public static videojuegosFragment newInstance() {
-        return new videojuegosFragment();
+    public static ReparacionFragment newInstance() {
+        return new ReparacionFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_videojuegos, container, false);
+        return inflater.inflate(R.layout.fragment_reparacion, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(VideojuegosViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(ReparacionViewModel.class);
         // TODO: Use the ViewModel
     }
 

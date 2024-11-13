@@ -7,8 +7,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.dam2.reto.ui.cesta.CestaFragment;
 import com.dam2.reto.ui.consolas.ConsolasFragment;
+import com.dam2.reto.ui.reparacion.ReparacionFragment;
 import com.dam2.reto.ui.tablets.TabletsFragment;
-import com.dam2.reto.ui.videojuegos.videojuegosFragment;
+import com.dam2.reto.ui.videojuegos.VideojuegosFragment;
 import com.dam2.reto.ui.parati.ParaTiFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
@@ -23,13 +24,15 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return new ParaTiFragment();
             case 1:
-                return new videojuegosFragment();
+                return new VideojuegosFragment();
             case 2:
                 return new ConsolasFragment();
             case 3:
                 return new TabletsFragment();
             case 4:
                 return new CestaFragment();
+            case 5:
+                return new ReparacionFragment();
             default:
                 return new ParaTiFragment();
         }
@@ -37,6 +40,6 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 5;
+        return 6;
     }
 }

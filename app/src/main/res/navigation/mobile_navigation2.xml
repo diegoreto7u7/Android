@@ -6,22 +6,22 @@
     app:startDestination="@id/navigation_videojuegos">
     <fragment
         android:id="@+id/navigation_videojuegos"
-        android:name="com.dam2.reto.ui.videojuegos.videojuegosFragment"
+        android:name="com.dam2.reto.ui.videojuegos.VideojuegosFragment"
         android:label="fragment_videojuegos"
         tools:layout="@layout/fragment_videojuegos" />
     <fragment
         android:id="@+id/navigation_consolas"
-        android:name="com.dam2.reto.ui.videojuegos.videojuegosFragment"
+        android:name="com.dam2.reto.ui.consolas.ConsolasFragment"
         android:label="fragment_consolas"
         tools:layout="@layout/fragment_consolas" />
     <fragment
         android:id="@+id/navigation_tablets"
-        android:name="com.dam2.reto.ui.videojuegos.videojuegosFragment"
+        android:name="com.dam2.reto.ui.tablets.TabletsFragment"
         android:label="fragment_tablets"
         tools:layout="@layout/fragment_tablets" />
     <fragment
         android:id="@+id/navigation_cesta"
-        android:name="com.dam2.reto.ui.videojuegos.videojuegosFragment"
+        android:name="com.dam2.reto.ui.cesta.CestaFragment"
         android:label="fragment_cesta"
         tools:layout="@layout/fragment_cesta" />
 </navigation>

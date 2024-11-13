@@ -1,4 +1,4 @@
-package com.dam2.reto.ui.tablets;
+package com.dam2.reto.ui.videojuegos;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -17,8 +17,10 @@ import android.view.ViewGroup;
 import com.dam2.reto.R;
 import com.dam2.reto.ui.adapters.ProductoAdapter;
 import com.dam2.reto.ui.parati.ParaTiViewModel;
+import com.dam2.reto.ui.tablets.TabletsFragment;
+import com.dam2.reto.ui.tablets.TabletsViewModel;
 
-public class TabletsFragment extends Fragment {
+public class VideojuegosFragment extends Fragment {
 
     private TabletsViewModel mViewModel;
     private ProductoAdapter smartphonesAdapter;
