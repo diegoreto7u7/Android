@@ -1,22 +1,17 @@
 package com.dam2.reto.ui.tablets;
 
 import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.dam2.reto.R;
 import com.dam2.reto.ui.adapters.ProductoAdapter;
-import com.dam2.reto.ui.parati.ParaTiViewModel;
 
 public class TabletsFragment extends Fragment {
 
@@ -43,9 +38,10 @@ public class TabletsFragment extends Fragment {
         RecyclerView recyclerViewSmartphones = view.findViewById(R.id.recyclerViewSmartphones);
         recyclerViewSmartphones.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mViewModel.getSmartphones().observe(getViewLifecycleOwner(), productos -> {
-            smartphonesAdapter = new ProductoAdapter(getContext(), productos);
+            smartphonesAdapter = new ProductoAdapter(getContext(), productos, productId -> {
+                // Handle item click
+            });
             recyclerViewSmartphones.setAdapter(smartphonesAdapter);
         });
     }
-
 }

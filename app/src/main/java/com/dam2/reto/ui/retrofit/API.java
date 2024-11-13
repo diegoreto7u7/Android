@@ -25,4 +25,5 @@ public interface API {
 
     @GET("/admin/producto/{id}")
     Call<Map<String, Object>> getProductoById(@Path("id") int id);
+
 }

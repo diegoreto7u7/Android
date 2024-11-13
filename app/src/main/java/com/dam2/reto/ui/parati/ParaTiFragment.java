@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,11 +27,28 @@ public class ParaTiFragment extends Fragment {
     private ProductoAdapter videojuegosAdapter;
     private ProductoAdapter consolasAdapter;
     private ProductoAdapter smartphonesAdapter;
+    private RecyclerView recyclerView;
+    private ProductoAdapter adapter;
+    private List<Map<String, Object>> productos;
 
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_para_ti, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_para_ti, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        adapter = new ProductoAdapter(getContext(), productos, productId -> {
+            NavController navController = Navigation.findNavController(view);
+            Bundle bundle = new Bundle();
+            bundle.putInt("product_id", productId);
+            navController.navigate(R.id.action_paraTiFragment_to_detalleFragment, bundle);
+        });
+
+        recyclerView.setAdapter(adapter);
+
+        return view;
     }
 
     @Override
@@ -42,7 +61,12 @@ public class ParaTiFragment extends Fragment {
         RecyclerView recyclerViewVideojuegos = view.findViewById(R.id.recyclerViewVideojuegos);
         recyclerViewVideojuegos.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mViewModel.getVideojuegos().observe(getViewLifecycleOwner(), productos -> {
-            videojuegosAdapter = new ProductoAdapter(getContext(), productos);
+            videojuegosAdapter = new ProductoAdapter(getContext(), productos, productId -> {
+                NavController navController = Navigation.findNavController(view);
+                Bundle bundle = new Bundle();
+                bundle.putInt("product_id", productId);
+                navController.navigate(R.id.action_paraTiFragment_to_detalleFragment, bundle);
+            });
             recyclerViewVideojuegos.setAdapter(videojuegosAdapter);
         });
 
@@ -50,7 +74,12 @@ public class ParaTiFragment extends Fragment {
         RecyclerView recyclerViewConsolas = view.findViewById(R.id.recyclerViewConsolas);
         recyclerViewConsolas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mViewModel.getConsolas().observe(getViewLifecycleOwner(), productos -> {
-            consolasAdapter = new ProductoAdapter(getContext(), productos);
+            consolasAdapter = new ProductoAdapter(getContext(), productos, productId -> {
+                NavController navController = Navigation.findNavController(view);
+                Bundle bundle = new Bundle();
+                bundle.putInt("product_id", productId);
+                navController.navigate(R.id.action_paraTiFragment_to_detalleFragment, bundle);
+            });
             recyclerViewConsolas.setAdapter(consolasAdapter);
         });
 
@@ -58,7 +87,12 @@ public class ParaTiFragment extends Fragment {
         RecyclerView recyclerViewSmartphones = view.findViewById(R.id.recyclerViewSmartphones);
         recyclerViewSmartphones.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mViewModel.getSmartphones().observe(getViewLifecycleOwner(), productos -> {
-            smartphonesAdapter = new ProductoAdapter(getContext(), productos);
+            smartphonesAdapter = new ProductoAdapter(getContext(), productos, productId -> {
+                NavController navController = Navigation.findNavController(view);
+                Bundle bundle = new Bundle();
+                bundle.putInt("product_id", productId);
+                navController.navigate(R.id.action_paraTiFragment_to_detalleFragment, bundle);
+            });
             recyclerViewSmartphones.setAdapter(smartphonesAdapter);
         });
     }

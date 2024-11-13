@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dam2.reto.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,16 +22,21 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
 
     private final List<Map<String, Object>> productos;
     private final Context context;
+    private final OnItemClickListener listener;
 
-    public ProductoAdapter(Context context, List<Map<String, Object>> productos) {
+    public interface OnItemClickListener {
+        void onItemClick(int productId);
+    }
+
+    public ProductoAdapter(Context context, List<Map<String, Object>> productos, OnItemClickListener listener) {
         this.context = context;
-        this.productos = productos;
+        this.productos = productos != null ? new ArrayList<>(productos) : new ArrayList<>();
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflar el layout del producto
         View view = LayoutInflater.from(context).inflate(R.layout.item_producto, parent, false);
         return new ProductoViewHolder(view);
     }
@@ -42,27 +48,32 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         holder.nombreProductoTextView.setText((String) producto.get("nombre_producto"));
         holder.precioProductoTextView.setText("Precio: €" + producto.get("precio_venta"));
 
-        List<String> imagenes = (List<String>) producto.get("imagenes");
-        if (imagenes != null && !imagenes.isEmpty()) {
-            holder.progressBar.setVisibility(View.VISIBLE); // Mostrar el ProgressBar antes de cargar
+        String imagen = (String) producto.get("imagen");
+        if (imagen != null && !imagen.isEmpty()) {
+            holder.progressBar.setVisibility(View.VISIBLE);
             Picasso.get()
-                    .load(imagenes.get(0))
+                    .load(imagen)
                     .error(R.drawable.kirby1)
                     .into(holder.imagenProductoImageView, new com.squareup.picasso.Callback() {
                         @Override
                         public void onSuccess() {
-                            holder.progressBar.setVisibility(View.GONE); // Ocultar el ProgressBar al cargar
+                            holder.progressBar.setVisibility(View.GONE);
                         }
 
                         @Override
                         public void onError(Exception e) {
-                            holder.progressBar.setVisibility(View.GONE); // Ocultar el ProgressBar en caso de error
+                            holder.progressBar.setVisibility(View.GONE);
                         }
                     });
         } else {
             holder.imagenProductoImageView.setImageResource(R.drawable.kirby1);
-            holder.progressBar.setVisibility(View.GONE); // Ocultar el ProgressBar si no hay imagen
+            holder.progressBar.setVisibility(View.GONE);
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            int productId = (Integer) producto.get("id");
+            listener.onItemClick(productId);
+        });
     }
 
     @Override
@@ -70,7 +81,6 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         return productos.size();
     }
 
-    // ViewHolder para los elementos del producto
     public static class ProductoViewHolder extends RecyclerView.ViewHolder {
         TextView nombreProductoTextView;
         TextView precioProductoTextView;
@@ -82,7 +92,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             nombreProductoTextView = itemView.findViewById(R.id.nombreProductoTextView);
             precioProductoTextView = itemView.findViewById(R.id.precioProductoTextView);
             imagenProductoImageView = itemView.findViewById(R.id.imagenProductoImageView);
-            progressBar = itemView.findViewById(R.id.progressBar); // Añadimos el ProgressBar
+            progressBar = itemView.findViewById(R.id.progressBar);
         }
     }
 }
