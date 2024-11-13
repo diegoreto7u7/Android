@@ -35,6 +35,7 @@ public class ConsolasFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        requireActivity().setTitle("Consolas");
         super.onViewCreated(view, savedInstanceState);
 
         mViewModel = new ViewModelProvider(this).get(ConsolasViewModel.class);

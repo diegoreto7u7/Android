@@ -30,9 +30,9 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 3:
                 return new TabletsFragment();
             case 4:
-                return new CestaFragment();
-            case 5:
                 return new ReparacionFragment();
+            case 5:
+                return new CestaFragment();
             default:
                 return new ParaTiFragment();
         }

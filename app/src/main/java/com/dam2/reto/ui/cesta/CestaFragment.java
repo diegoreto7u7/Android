@@ -27,7 +27,6 @@ public class CestaFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         // Verificar si el usuario está autenticado antes de inflar la vista
         if (!isAuthenticated()) {
             // Si no está autenticado, redirigir al login
@@ -53,4 +52,5 @@ public class CestaFragment extends Fragment {
         String token = preferences.getString("auth_token", null);
         return token != null;
     }
+
 }
