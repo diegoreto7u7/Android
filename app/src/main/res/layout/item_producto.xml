@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="150dp"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
-    android:orientation="vertical"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
-    <ImageView
-        android:id="@+id/imagenProductoImageView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <!-- Imagen del producto -->
+        <ImageView
+            android:id="@+id/imagenProductoImageView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
+
+        <!-- Barra de progreso para la carga de la imagen -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <!-- Nombre del producto -->
     <TextView
         android:id="@+id/nombreProductoTextView"
         android:layout_width="wrap_content"
@@ -24,6 +40,7 @@
         android:textSize="14sp"
         android:textStyle="bold" />
 
+    <!-- Precio del producto -->
     <TextView
         android:id="@+id/precioProductoTextView"
         android:layout_width="wrap_content"

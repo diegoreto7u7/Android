@@ -5,13 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dam2.reto.R;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -30,6 +30,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     @NonNull
     @Override
     public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflar el layout del producto
         View view = LayoutInflater.from(context).inflate(R.layout.item_producto, parent, false);
         return new ProductoViewHolder(view);
     }
@@ -43,13 +44,24 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
 
         List<String> imagenes = (List<String>) producto.get("imagenes");
         if (imagenes != null && !imagenes.isEmpty()) {
+            holder.progressBar.setVisibility(View.VISIBLE); // Mostrar el ProgressBar antes de cargar
             Picasso.get()
                     .load(imagenes.get(0))
                     .error(R.drawable.kirby1)
-                    .into(holder.imagenProductoImageView);
+                    .into(holder.imagenProductoImageView, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            holder.progressBar.setVisibility(View.GONE); // Ocultar el ProgressBar al cargar
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            holder.progressBar.setVisibility(View.GONE); // Ocultar el ProgressBar en caso de error
+                        }
+                    });
         } else {
-            // Si no hay URL de imagen, carga la imagen por defecto
             holder.imagenProductoImageView.setImageResource(R.drawable.kirby1);
+            holder.progressBar.setVisibility(View.GONE); // Ocultar el ProgressBar si no hay imagen
         }
     }
 
@@ -58,16 +70,19 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         return productos.size();
     }
 
+    // ViewHolder para los elementos del producto
     public static class ProductoViewHolder extends RecyclerView.ViewHolder {
         TextView nombreProductoTextView;
         TextView precioProductoTextView;
         ImageView imagenProductoImageView;
+        ProgressBar progressBar;
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
             nombreProductoTextView = itemView.findViewById(R.id.nombreProductoTextView);
             precioProductoTextView = itemView.findViewById(R.id.precioProductoTextView);
             imagenProductoImageView = itemView.findViewById(R.id.imagenProductoImageView);
+            progressBar = itemView.findViewById(R.id.progressBar); // Añadimos el ProgressBar
         }
     }
 }

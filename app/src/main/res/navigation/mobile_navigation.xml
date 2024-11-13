@@ -9,23 +9,81 @@
         android:id="@+id/navigation_home"
         android:name="com.dam2.reto.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <!-- Acción hacia Dashboard -->
+        <action
+            android:id="@+id/action_home_to_dashboard"
+            app:destination="@id/navigation_dashboard"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <!-- Acción hacia Notifications -->
+        <action
+            android:id="@+id/action_home_to_notifications"
+            app:destination="@id/navigation_notifications"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <!-- Acción hacia Historia -->
+        <action
+            android:id="@+id/action_home_to_historia"
+            app:destination="@id/navigation_historia"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.dam2.reto.ui.ubicacion.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+
+        <!-- Acción hacia Home -->
+        <action
+            android:id="@+id/action_dashboard_to_home"
+            app:destination="@id/navigation_home"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.dam2.reto.ui.galeria.NotificationsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications">
+
+        <!-- Acción hacia Home -->
+        <action
+            android:id="@+id/action_notifications_to_home"
+            app:destination="@id/navigation_home"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_historia"
         android:name="com.dam2.reto.ui.historia.HistoriaFragment"
         android:label="Historia"
-        tools:layout="@layout/fragment_historia" />
+        tools:layout="@layout/fragment_historia">
+
+        <!-- Acción hacia Home -->
+        <action
+            android:id="@+id/action_historia_to_home"
+            app:destination="@id/navigation_home"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
 </navigation>
