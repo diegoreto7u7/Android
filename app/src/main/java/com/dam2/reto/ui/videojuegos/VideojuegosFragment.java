@@ -1,32 +1,53 @@
 package com.dam2.reto.ui.videojuegos;
 
-import androidx.lifecycle.ViewModelProvider;
-import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.dam2.reto.R;
 import com.dam2.reto.ui.adapters.ProductoAdapter;
+import com.dam2.reto.ui.modelo.Producto;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class VideojuegosFragment extends Fragment {
 
     private VideojuegosViewModel mViewModel;
-    private ProductoAdapter videojuegosAdapter;
-
-    public static VideojuegosFragment newInstance() {
-        return new VideojuegosFragment();
-    }
+    private ProductoAdapter adapter;
+    private RecyclerView recyclerView;
+    private List<Producto> productos;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_videojuegos, container, false);
-        VideojuegosViewModelFactory factory = new VideojuegosViewModelFactory(requireContext());
-        mViewModel = new ViewModelProvider(this, factory).get(VideojuegosViewModel.class);
+
+        recyclerView = view.findViewById(R.id.recyclerViewVideojuegos);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        adapter = new ProductoAdapter(getContext(), productos, new ProductoAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int productId) {
+                // Handle item click
+            }
+
+            @Override
+            public void onAddToCartClick(Producto producto) {
+                // Handle add to cart click
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
@@ -35,31 +56,36 @@ public class VideojuegosFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerViewVideojuegos = view.findViewById(R.id.recyclerViewVideojuegos);
-        if (recyclerViewVideojuegos != null) {
-            recyclerViewVideojuegos.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-            mViewModel.getVideojuegos().observe(getViewLifecycleOwner(), productos -> {
-                videojuegosAdapter = new ProductoAdapter(getContext(), productos, new ProductoAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int productId) {
-                        navigateToProductDetail(productId);
-                    }
+        Context context = requireContext();
+        VideojuegosViewModelFactory factory = new VideojuegosViewModelFactory(context);
+        mViewModel = new ViewModelProvider(this, factory).get(VideojuegosViewModel.class);
 
-                    @Override
-                    public void onAddToCartClick(int productId) {
-                        addToCart(productId);
-                    }
-                });
-                recyclerViewVideojuegos.setAdapter(videojuegosAdapter);
-            });
+        mViewModel.getVideojuegos().observe(getViewLifecycleOwner(), productosMap -> {
+            List<Producto> productos = new ArrayList<>();
+            for (Map<String, Object> map : productosMap) {
+                Producto producto = new Producto();
+                producto.setId(map.get("id") != null ? parseDouble(map.get("id")).intValue() : 0);
+                producto.setNombreProducto((String) map.get("nombre"));
+                producto.setPrecioVenta(map.get("precio") != null ? parseDouble(map.get("precio")) : 0.0);
+                producto.setPrecioAlquiler(map.get("precio_alquiler") != null ? parseDouble(map.get("precio_alquiler")) : 0.0);
+                producto.setDescripcion((String) map.get("descripcion"));
+                productos.add(producto);
+            }
+            adapter.updateProductos(productos);
+        });
+    }
+
+    private Double parseDouble(Object value) {
+        if (value instanceof Double) {
+            return (Double) value;
+        } else if (value instanceof String) {
+            try {
+                return Double.parseDouble((String) value);
+            } catch (NumberFormatException e) {
+                return 0.0;
+            }
+        } else {
+            return 0.0;
         }
-    }
-
-    private void navigateToProductDetail(int productId) {
-        // Implement navigation to product detail page
-    }
-
-    private void addToCart(int productId) {
-        // Implement logic to add product to cart
     }
 }

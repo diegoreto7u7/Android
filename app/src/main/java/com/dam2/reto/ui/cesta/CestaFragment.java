@@ -14,7 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dam2.reto.R;
+import com.dam2.reto.ui.adapters.ProductoAdapter;
 import com.dam2.reto.ui.login.LoginActivity;
 import com.dam2.reto.ui.modelo.Producto;
 import com.dam2.reto.ui.modelo.ResponseMessage;
@@ -22,6 +26,7 @@ import com.dam2.reto.ui.modelo.SaleRequest;
 import com.dam2.reto.ui.retrofit.API;
 import com.dam2.reto.ui.retrofit.RetrofitInstance;
 
+import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,15 +42,34 @@ public class CestaFragment extends Fragment {
         return new CestaFragment();
     }
 
-   @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    private List<Producto> productosEnCesta;
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cesta, container, false);
 
-        totalTextView = view.findViewById(R.id.totalTextView);
-        checkoutButton = view.findViewById(R.id.checkoutButton);
+        RecyclerView recyclerView = view.findViewById(R.id.cestaRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        checkoutButton.setOnClickListener(v -> makeSale());
+        totalTextView = view.findViewById(R.id.totalTextView); // Initialize totalTextView
+
+        if (getArguments() != null) {
+            productosEnCesta = getArguments().getParcelableArrayList("productosEnCesta");
+        }
+
+        ProductoAdapter adapter = new ProductoAdapter(getContext(), productosEnCesta, new ProductoAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int productId) {
+                // Handle product click
+            }
+
+            @Override
+            public void onAddToCartClick(Producto producto) {
+                // Do nothing here
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
@@ -80,17 +104,14 @@ public class CestaFragment extends Fragment {
                 @Override
                 public void onResponse(Call<ResponseMessage> call, Response<ResponseMessage> response) {
                     if (response.isSuccessful()) {
-                        // Venta exitosa
                         Toast.makeText(getContext(), "Venta exitosa", Toast.LENGTH_SHORT).show();
                     } else {
-                        // Error en la venta
                         Toast.makeText(getContext(), "Error en la venta", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseMessage> call, Throwable t) {
-                    // Error en la venta
                     Toast.makeText(getContext(), "Error en la venta", Toast.LENGTH_SHORT).show();
                 }
             });

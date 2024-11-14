@@ -1,6 +1,9 @@
 package com.dam2.reto.ui.modelo;
 
-public class Producto {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Producto implements Parcelable {
     private int id;
     private String nombreProducto;
     private double precioVenta;
@@ -10,6 +13,52 @@ public class Producto {
     private String imagen;
     private String descripcion;
     private String marca;
+
+    public Producto() {
+        // No-argument constructor
+    }
+
+    public Producto(Parcel in) {
+        id = in.readInt();
+        nombreProducto = in.readString();
+        precioVenta = in.readDouble();
+        estado = in.readString();
+        precioAlquiler = in.readDouble();
+        tipo = in.readString();
+        imagen = in.readString();
+        descripcion = in.readString();
+        marca = in.readString();
+    }
+
+    public static final Creator<Producto> CREATOR = new Creator<Producto>() {
+        @Override
+        public Producto createFromParcel(Parcel in) {
+            return new Producto(in);
+        }
+
+        @Override
+        public Producto[] newArray(int size) {
+            return new Producto[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(nombreProducto);
+        dest.writeDouble(precioVenta);
+        dest.writeString(estado);
+        dest.writeDouble(precioAlquiler);
+        dest.writeString(tipo);
+        dest.writeString(imagen);
+        dest.writeString(descripcion);
+        dest.writeString(marca);
+    }
 
     public int getId() {
         return id;

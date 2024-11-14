@@ -90,18 +90,25 @@
     <fragment
         android:id="@+id/paraTiFragment"
         android:name="com.dam2.reto.ui.parati.ParaTiFragment"
-        android:label="Para Ti"
+        android:label="fragment_para_ti"
         tools:layout="@layout/fragment_para_ti">
-
-        <!-- Acción hacia Detalle -->
         <action
             android:id="@+id/action_paraTiFragment_to_detalleFragment"
             app:destination="@id/detalleFragment" />
     </fragment>
 
     <fragment
+        android:id="@+id/cestaFragment"
+        android:name="com.dam2.reto.ui.cesta.CestaFragment"
+        android:label="Cesta"
+        tools:layout="@layout/fragment_cesta" />
+
+    <fragment
         android:id="@+id/detalleFragment"
         android:name="com.dam2.reto.ui.detalle.DetalleFragment"
         android:label="Detalle"
         tools:layout="@layout/fragment_detalle" />
+
+
+
 </navigation>

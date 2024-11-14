@@ -1,57 +1,91 @@
 package com.dam2.reto.ui.consolas;
 
-import androidx.lifecycle.ViewModelProvider;
-import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.dam2.reto.R;
 import com.dam2.reto.ui.adapters.ProductoAdapter;
+import com.dam2.reto.ui.modelo.Producto;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ConsolasFragment extends Fragment {
 
     private ConsolasViewModel mViewModel;
-    private ProductoAdapter consolasAdapter;
-
-    public static ConsolasFragment newInstance() {
-        return new ConsolasFragment();
-    }
+    private ProductoAdapter adapter;
+    private RecyclerView recyclerView;
+    private List<Producto> productos;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_consolas, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_consolas, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerViewConsolas);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        adapter = new ProductoAdapter(getContext(), productos, new ProductoAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int productId) {
+                // Handle item click
+            }
+
+            @Override
+            public void onAddToCartClick(Producto producto) {
+                // Handle add to cart click
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        requireActivity().setTitle("Consolas");
         super.onViewCreated(view, savedInstanceState);
 
-        ConsolasViewModelFactory factory = new ConsolasViewModelFactory(requireContext());
+        Context context = requireContext();
+        ConsolasViewModelFactory factory = new ConsolasViewModelFactory(context);
         mViewModel = new ViewModelProvider(this, factory).get(ConsolasViewModel.class);
 
-        // Configuración de RecyclerView para consolas
-        RecyclerView recyclerViewConsolas = view.findViewById(R.id.recyclerViewConsolas);
-        recyclerViewConsolas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mViewModel.getConsolas().observe(getViewLifecycleOwner(), productos -> {
-            consolasAdapter = new ProductoAdapter(getContext(), productos, new ProductoAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int productId) {
-                    // Handle item click
-                }
-
-                @Override
-                public void onAddToCartClick(int productId) {
-                    // Handle add to cart click
-                }
-            });
-            recyclerViewConsolas.setAdapter(consolasAdapter);
+        mViewModel.getConsolas().observe(getViewLifecycleOwner(), productosMap -> {
+            List<Producto> productos = new ArrayList<>();
+            for (Map<String, Object> map : productosMap) {
+                Producto producto = new Producto();
+                producto.setId(map.get("id") != null ? parseDouble(map.get("id")).intValue() : 0);
+                producto.setNombreProducto((String) map.get("nombre"));
+                producto.setPrecioVenta(map.get("precio") != null ? parseDouble(map.get("precio")) : 0.0);
+                producto.setPrecioAlquiler(map.get("precio_alquiler") != null ? parseDouble(map.get("precio_alquiler")) : 0.0);
+                producto.setDescripcion((String) map.get("descripcion"));
+                productos.add(producto);
+            }
+            adapter.updateProductos(productos);
         });
+    }
+
+    private Double parseDouble(Object value) {
+        if (value instanceof Double) {
+            return (Double) value;
+        } else if (value instanceof String) {
+            try {
+                return Double.parseDouble((String) value);
+            } catch (NumberFormatException e) {
+                return 0.0;
+            }
+        } else {
+            return 0.0;
+        }
     }
 }
