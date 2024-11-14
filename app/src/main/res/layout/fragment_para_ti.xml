@@ -8,48 +8,47 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
         <!-- Carrusel de Videojuegos -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Videojuegos"
+            android:text="Videojuegos Más Recientes"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingTop="8dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewVideojuegos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal" />
 
         <!-- Carrusel de Consolas -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Consolas"
+            android:text="Consolas Más Recientes"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingTop="8dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewConsolas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal" />
 
         <!-- Carrusel de Smartphones -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Smartphones"
+            android:text="Smartphones Más Recientes"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingTop="8dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewSmartphones"

@@ -5,24 +5,37 @@
     android:orientation="horizontal"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/productNameTextView"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:text="Product Name"
-        android:textSize="16sp"/>
+    <ImageView
+        android:id="@+id/productImageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/product_image" />
 
-    <TextView
-        android:id="@+id/productPriceTextView"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="€0.0"
-        android:textSize="16sp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="8dp">
+
+        <TextView
+            android:id="@+id/productNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/productPriceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#4CAF50" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/removeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remove"/>
+        android:text="Eliminar" />
 </LinearLayout>

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dam2.reto.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -46,42 +47,32 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     @Override
     public void onBindViewHolder(@NonNull ProductoViewHolder holder, int position) {
         Map<String, Object> producto = productos.get(position);
+
+        // Establecer nombre y precio del producto
         holder.nombreProductoTextView.setText((String) producto.get("nombre_producto"));
-        holder.precioProductoTextView.setText("Precio: €" + producto.get("precio_venta"));
+        holder.precioProductoTextView.setText("Compra: €" + producto.get("precio_venta"));
 
-        String imagen = (String) producto.get("imagen");
-        if (imagen != null && !imagen.isEmpty()) {
-            holder.progressBar.setVisibility(View.VISIBLE);
-            Picasso.get()
-                    .load(imagen)
-                    .error(R.drawable.kirby1)
-                    .into(holder.imagenProductoImageView, new com.squareup.picasso.Callback() {
-                        @Override
-                        public void onSuccess() {
-                            holder.progressBar.setVisibility(View.GONE);
-                        }
+        // Cargar imagen con Picasso y mostrar ProgressBar mientras carga
+        holder.progressBar.setVisibility(View.VISIBLE);
+        Picasso.get()
+                .load((String) producto.get("imagen"))
+                .placeholder(R.drawable.ic_launcher_background)  // Placeholder mientras carga
+                .error(R.drawable.ic_launcher_background)        // Imagen de error
+                .into(holder.imagenProductoImageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        holder.progressBar.setVisibility(View.GONE);
+                    }
 
-                        @Override
-                        public void onError(Exception e) {
-                            holder.progressBar.setVisibility(View.GONE);
-                        }
-                    });
-        } else {
-            holder.imagenProductoImageView.setImageResource(R.drawable.hola);
-            holder.progressBar.setVisibility(View.GONE);
-        }
+                    @Override
+                    public void onError(Exception e) {
+                        holder.progressBar.setVisibility(View.GONE);
+                    }
+                });
 
-        holder.itemView.setOnClickListener(v -> {
-            Object idObj = producto.get("id");
-            int productId = idObj instanceof Double ? ((Double) idObj).intValue() : (Integer) idObj;
-            listener.onItemClick(productId);
-        });
-
-        holder.addToCartButton.setOnClickListener(v -> {
-            Object idObj = producto.get("id");
-            int productId = idObj instanceof Double ? ((Double) idObj).intValue() : (Integer) idObj;
-            listener.onAddToCartClick(productId);
-        });
+        // Configurar eventos de clic
+        holder.itemView.setOnClickListener(v -> listener.onItemClick((int) producto.get("id")));
+        holder.addToCartButton.setOnClickListener(v -> listener.onAddToCartClick((int) producto.get("id")));
     }
 
     @Override
@@ -90,19 +81,19 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     }
 
     public static class ProductoViewHolder extends RecyclerView.ViewHolder {
+        ImageView imagenProductoImageView;
         TextView nombreProductoTextView;
         TextView precioProductoTextView;
-        ImageView imagenProductoImageView;
-        ProgressBar progressBar;
         ImageButton addToCartButton;
+        ProgressBar progressBar;
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
+            imagenProductoImageView = itemView.findViewById(R.id.imagenProductoImageView);
             nombreProductoTextView = itemView.findViewById(R.id.nombreProductoTextView);
             precioProductoTextView = itemView.findViewById(R.id.precioProductoTextView);
-            imagenProductoImageView = itemView.findViewById(R.id.imagenProductoImageView);
-            progressBar = itemView.findViewById(R.id.progressBar);
             addToCartButton = itemView.findViewById(R.id.addToCartButton);
+            progressBar = itemView.findViewById(R.id.progressBar);
         }
     }
 }

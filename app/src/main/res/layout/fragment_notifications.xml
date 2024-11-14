@@ -4,19 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.galeria.NotificationsFragment">
+    android:background="#ffffff"
+    tools:context=".ui.galeria.GaleriaFragment">
 
+    <!-- Título de la galería -->
     <TextView
-        android:id="@+id/text_notifications"
+        android:id="@+id/titleGaleria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:text="Galerías de Fotos de la Tienda"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        android:paddingTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- RecyclerView para mostrar las galerías de fotos -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewGalerias"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/titleGaleria"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_gallery" />
+
+    <!-- Contenedor del carrusel (Visible solo cuando se abre el carrusel) -->
+    <FrameLayout
+        android:id="@+id/carouselContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CC000000"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/carouselImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/gallery_image" />
+
+        <!-- Botón para la imagen anterior -->
+        <ImageButton
+            android:id="@+id/buttonPrevImage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/previous_image"
+            android:tint="@android:color/white"
+            android:layout_gravity="start|center_vertical" />
+
+        <!-- Botón para la imagen siguiente -->
+        <ImageButton
+            android:id="@+id/buttonNextImage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_forward"
+            android:contentDescription="@string/next_image"
+            android:tint="@android:color/white"
+            android:layout_gravity="end|center_vertical" />
+
+        <!-- Botón de cierre del carrusel -->
+        <ImageButton
+            android:id="@+id/buttonCloseCarousel"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            android:contentDescription="@string/close_carousel"
+            android:tint="@android:color/white"
+            android:layout_gravity="top|end"
+            android:layout_margin="16dp" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

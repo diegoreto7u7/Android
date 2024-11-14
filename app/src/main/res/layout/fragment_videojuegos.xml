@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -8,19 +10,51 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Carrusel de Videojuegos -->
+        <!-- Título Principal -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Videojuegos en Alquiler"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColor="#333333" />
+
+        <!-- Título de la Sección de Top Videojuegos -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Top Videojuegos"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:textColor="#555555" />
 
+        <!-- RecyclerView para Top Videojuegos (Desplazamiento Horizontal) -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewVideojuegos"
+            android:id="@+id/recyclerViewTopVideojuegos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingBottom="16dp" />
+
+        <!-- Título de la Sección de Todos los Videojuegos -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Todos los Videojuegos"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:textColor="#555555" />
+
+        <!-- RecyclerView para Todos los Videojuegos (Cuadrícula) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTodosVideojuegos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:paddingBottom="16dp" />
 
     </LinearLayout>

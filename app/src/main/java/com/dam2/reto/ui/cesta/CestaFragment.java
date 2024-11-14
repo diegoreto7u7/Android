@@ -1,6 +1,5 @@
 package com.dam2.reto.ui.cesta;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,8 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dam2.reto.R;
-import com.dam2.reto.ui.login.LoginActivity;
+import com.dam2.reto.ui.adapters.CestaAdapter;
 import com.dam2.reto.ui.modelo.Producto;
 import com.dam2.reto.ui.modelo.ResponseMessage;
 import com.dam2.reto.ui.modelo.SaleRequest;
@@ -23,6 +25,7 @@ import com.dam2.reto.ui.retrofit.API;
 import com.dam2.reto.ui.retrofit.RetrofitInstance;
 
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,20 +35,28 @@ public class CestaFragment extends Fragment {
     private CestaViewModel mViewModel;
     private TextView totalTextView;
     private Button checkoutButton;
+    private RecyclerView recyclerViewCesta;
+    private CestaAdapter cestaAdapter;
 
-    public static CestaFragment newInstance() {
-        return new CestaFragment();
-    }
-
-   @Override
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cesta, container, false);
 
         totalTextView = view.findViewById(R.id.totalTextView);
         checkoutButton = view.findViewById(R.id.checkoutButton);
+        recyclerViewCesta = view.findViewById(R.id.recyclerViewCesta);
 
-        checkoutButton.setOnClickListener(v -> makeSale());
+        recyclerViewCesta.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Configuración del botón de checkout
+        checkoutButton.setOnClickListener(v -> {
+            if (isAuthenticated()) {
+                makeSale();
+            } else {
+                Toast.makeText(getContext(), "Inicia sesión para completar la compra", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }
@@ -54,9 +65,15 @@ public class CestaFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(CestaViewModel.class);
+
+        // Configurar el RecyclerView con el adaptador y observar cambios en los items de la cesta
+        cestaAdapter = new CestaAdapter(mViewModel);
+        recyclerViewCesta.setAdapter(cestaAdapter);
+
         mViewModel.getCartItems().observe(getViewLifecycleOwner(), cartItems -> {
             double total = mViewModel.calculateTotal();
             totalTextView.setText("Total: €" + total);
+            cestaAdapter.setProductos(cartItems);
         });
     }
 
@@ -80,20 +97,21 @@ public class CestaFragment extends Fragment {
                 @Override
                 public void onResponse(Call<ResponseMessage> call, Response<ResponseMessage> response) {
                     if (response.isSuccessful()) {
-                        // Venta exitosa
                         Toast.makeText(getContext(), "Venta exitosa", Toast.LENGTH_SHORT).show();
+                        mViewModel.clearCart();  // Limpia la cesta después de la venta
+                        totalTextView.setText("Total: €0.00");
                     } else {
-                        // Error en la venta
                         Toast.makeText(getContext(), "Error en la venta", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseMessage> call, Throwable t) {
-                    // Error en la venta
                     Toast.makeText(getContext(), "Error en la venta", Toast.LENGTH_SHORT).show();
                 }
             });
+        } else {
+            Toast.makeText(getContext(), "La cesta está vacía", Toast.LENGTH_SHORT).show();
         }
     }
 }

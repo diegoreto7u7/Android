@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,8 @@ import com.dam2.reto.ui.adapters.ProductoAdapter;
 public class TabletsFragment extends Fragment {
 
     private TabletsViewModel mViewModel;
-    private ProductoAdapter tabletsAdapter;
+    private ProductoAdapter topTabletsAdapter;
+    private ProductoAdapter todasTabletsAdapter;
 
     public static TabletsFragment newInstance() {
         return new TabletsFragment();
@@ -36,22 +38,48 @@ public class TabletsFragment extends Fragment {
         TabletsViewModelFactory factory = new TabletsViewModelFactory(requireContext());
         mViewModel = new ViewModelProvider(this, factory).get(TabletsViewModel.class);
 
-        // Configuración de RecyclerView para tablets
-        RecyclerView recyclerViewTablets = view.findViewById(R.id.recyclerViewSmartphones);
-        recyclerViewTablets.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mViewModel.getTablets().observe(getViewLifecycleOwner(), productos -> {
-            tabletsAdapter = new ProductoAdapter(getContext(), productos, new ProductoAdapter.OnItemClickListener() {
+        // Configurar RecyclerView para Top Tablets
+        setupTopTabletsRecyclerView(view);
+
+        // Configurar RecyclerView para Todas las Tablets
+        setupTodasTabletsRecyclerView(view);
+    }
+
+    private void setupTopTabletsRecyclerView(View view) {
+        RecyclerView recyclerViewTopTablets = view.findViewById(R.id.recyclerViewTopTablets);
+        recyclerViewTopTablets.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mViewModel.getTopTablets().observe(getViewLifecycleOwner(), productos -> {
+            topTabletsAdapter = new ProductoAdapter(getContext(), productos, new ProductoAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int productId) {
-                    // Handle item click
+                    // Acción al hacer clic en una tablet destacada
                 }
 
                 @Override
                 public void onAddToCartClick(int productId) {
-                    // Handle add to cart click
+                    // Acción al agregar una tablet destacada al carrito
                 }
             });
-            recyclerViewTablets.setAdapter(tabletsAdapter);
+            recyclerViewTopTablets.setAdapter(topTabletsAdapter);
+        });
+    }
+
+    private void setupTodasTabletsRecyclerView(View view) {
+        RecyclerView recyclerViewTodasTablets = view.findViewById(R.id.recyclerViewTodasTablets);
+        recyclerViewTodasTablets.setLayoutManager(new GridLayoutManager(getContext(), 2)); // Cuadrícula con 2 columnas
+        mViewModel.getTodasTablets().observe(getViewLifecycleOwner(), productos -> {
+            todasTabletsAdapter = new ProductoAdapter(getContext(), productos, new ProductoAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int productId) {
+                    // Acción al hacer clic en una tablet
+                }
+
+                @Override
+                public void onAddToCartClick(int productId) {
+                    // Acción al agregar una tablet al carrito
+                }
+            });
+            recyclerViewTodasTablets.setAdapter(todasTabletsAdapter);
         });
     }
 }

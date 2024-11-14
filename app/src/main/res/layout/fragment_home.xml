@@ -7,6 +7,45 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
+    <!-- Contenedor para SearchView y el ícono de perfil -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="48dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/profileIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:queryHint="Buscar productos..."
+                android:iconifiedByDefault="false"
+                android:background="@drawable/searchbar_background" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Ícono de perfil al lado derecho del SearchView -->
+        <ImageView
+            android:id="@+id/profileIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="Ícono de perfil"
+            android:src="@drawable/ic_person_outline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- TabLayout y ViewPager2 para las pestañas -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"

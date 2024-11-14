@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="recyclerViewTopVideojuegos" type="id" />
+    <item name="recyclerViewTodosVideojuegos" type="id" />
+    <item name="recyclerViewTodasConsolas" type="id" />
+    <item name="recyclerViewTopConsolas" type="id" />
+    <item name="recyclerViewTopSmartphones" type="id" />
+    <item name="recyclerViewTodosSmartphones" type="id" />
+    <item name="evolutionImageView" type="id" />
+    <item name="historyImageView" type="id" />
+    <item name="precioProducto" type="id" />
+    <item name="nombreProducto" type="id" />
+    <item name="imagenProducto" type="id" />
+</resources>

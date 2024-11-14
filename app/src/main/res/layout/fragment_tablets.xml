@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -8,21 +10,41 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-
-        <!-- Carrusel de Smartphones -->
-
+        <!-- Título de la Sección "Top Tablets" -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Top Smartphones"
+            android:text="Top Tablets"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColor="#555555" />
 
+        <!-- RecyclerView para Top Tablets (desplazamiento horizontal) -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewSmartphones"
+            android:id="@+id/recyclerViewTopTablets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" />
+            android:orientation="horizontal"
+            android:paddingBottom="16dp" />
+
+        <!-- Título de la Sección "Todas las Tablets" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Todas las Tablets"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:textColor="#555555" />
+
+        <!-- RecyclerView para Todas las Tablets (cuadrícula) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTodasTablets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp" />
 
     </LinearLayout>
 </ScrollView>

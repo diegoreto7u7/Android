@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,10 +45,8 @@ public class CestaAdapter extends RecyclerView.Adapter<CestaAdapter.CestaViewHol
         holder.productNameTextView.setText(producto.getNombreProducto());
         holder.productPriceTextView.setText("€" + producto.getPrecioVenta());
 
-        holder.removeButton.setOnClickListener(v -> {
-            viewModel.removeProductFromCart(producto);
-            notifyDataSetChanged();
-        });
+        // Configuración del botón para eliminar el producto
+        holder.removeButton.setOnClickListener(v -> viewModel.removeProductFromCart(producto));
     }
 
     @Override
@@ -59,12 +58,14 @@ public class CestaAdapter extends RecyclerView.Adapter<CestaAdapter.CestaViewHol
         TextView productNameTextView;
         TextView productPriceTextView;
         Button removeButton;
+        ImageView productImageView;
 
         public CestaViewHolder(@NonNull View itemView) {
             super(itemView);
-            productNameTextView = itemView.findViewById(R.id.productNameTextView);
-            productPriceTextView = itemView.findViewById(R.id.productPriceTextView);
+            productNameTextView = itemView.findViewById(R.id.nombreProductoTextView);
+            productPriceTextView = itemView.findViewById(R.id.precioProductoTextView);
             removeButton = itemView.findViewById(R.id.removeButton);
+            productImageView = itemView.findViewById(R.id.imagenProductoImageView);
         }
     }
 }

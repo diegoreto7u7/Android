@@ -5,29 +5,24 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cestaRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-
-    <Button
-        android:id="@+id/checkoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Comprar"
-        android:layout_gravity="center_horizontal"
-        android:padding="16dp"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white" />
     <TextView
         android:id="@+id/totalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total: €0.0"
+        android:text="Total: €0.00"
         android:textSize="18sp"
-        android:layout_gravity="end"
-        android:padding="8dp"/>
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
 
+    <Button
+        android:id="@+id/checkoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Finalizar Compra"
+        android:layout_marginBottom="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCesta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

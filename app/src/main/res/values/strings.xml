@@ -4,4 +4,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="product_image">Imagen del producto</string>
+    <string name="gallery_thumbnail" />
+
+
+
+    <string name="gallery_image">Imagen de la galería</string>
+    <string name="previous_image">Imagen anterior</string>
+    <string name="next_image">Imagen siguiente</string>
+    <string name="close_carousel">Cerrar carrusel</string>
 </resources>
+
