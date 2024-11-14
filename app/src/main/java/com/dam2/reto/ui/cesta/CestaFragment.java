@@ -52,10 +52,7 @@ public class CestaFragment extends Fragment {
         totalTextView = view.findViewById(R.id.totalTextView);
         checkoutButton = view.findViewById(R.id.checkoutButton);
 
-        checkoutButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-        });
+        checkoutButton.setOnClickListener(v -> makeSale());
 
         return view;
     }
