@@ -23,7 +23,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText emailEditText;
+    private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;
 
@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        emailEditText = findViewById(R.id.emailEditText);
+        usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
 
@@ -40,17 +40,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        String email = emailEditText.getText().toString().trim();
+        String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
-        if (email.isEmpty() || password.isEmpty()) {
+        if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Por favor ingresa todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Crea un mapa con las credenciales
         Map<String, String> credentials = new HashMap<>();
-        credentials.put("email", email);
+        credentials.put("username", username);
         credentials.put("password", password);
 
         API apiService = RetrofitInstance.getAPI(this);
