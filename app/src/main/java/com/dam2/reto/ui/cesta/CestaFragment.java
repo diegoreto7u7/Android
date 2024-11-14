@@ -37,16 +37,9 @@ public class CestaFragment extends Fragment {
         return new CestaFragment();
     }
 
-    @Override
+   @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        if (!isAuthenticated()) {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-            getActivity().finish();
-            return null;
-        }
-
         View view = inflater.inflate(R.layout.fragment_cesta, container, false);
 
         totalTextView = view.findViewById(R.id.totalTextView);
