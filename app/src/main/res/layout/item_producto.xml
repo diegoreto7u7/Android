@@ -43,12 +43,14 @@
             android:text="Precio"
             android:textSize="12sp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/addToCartButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/precioProductoTextView"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/imagenProductoImageView"
+            android:layout_alignParentEnd="true"
             android:layout_margin="8dp"
-            android:text="Añadir a la cesta" />
+            android:src="@drawable/carrito"
+            android:contentDescription="carrito" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

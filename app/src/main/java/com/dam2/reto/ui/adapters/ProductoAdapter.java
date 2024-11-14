@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -94,7 +94,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         TextView precioProductoTextView;
         ImageView imagenProductoImageView;
         ProgressBar progressBar;
-        Button addToCartButton;
+        ImageButton addToCartButton;
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
