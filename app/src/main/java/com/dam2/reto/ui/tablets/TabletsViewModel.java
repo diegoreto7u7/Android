@@ -1,5 +1,6 @@
 package com.dam2.reto.ui.tablets;
 
+import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -16,28 +17,29 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TabletsViewModel extends ViewModel {
-    private final MutableLiveData<List<Map<String, Object>>> smartphones = new MutableLiveData<>();
-    // TODO: Implement the ViewModel
-    public TabletsViewModel() {
-        loadSmartphones();
-    }
-    public LiveData<List<Map<String, Object>>> getSmartphones() {
-        return smartphones;
-    }
+    private final Context context;
 
-    private void loadSmartphones() {
-        API api = RetrofitInstance.getRetrofitInstance().create(API.class);
+    private final MutableLiveData<List<Map<String, Object>>> tablets = new MutableLiveData<>();
+    public TabletsViewModel(Context context) {
+        this.context = context;
+        loadTablets(context);
+    }
+    public LiveData<List<Map<String, Object>>> getTablets() {
+        return tablets;
+    }
+    private void loadTablets(Context context) {
+        API api = RetrofitInstance.getRetrofitInstance(context).create(API.class);
         api.getSmartphones().enqueue(new Callback<List<Map<String, Object>>>() {
             @Override
             public void onResponse(Call<List<Map<String, Object>>> call, Response<List<Map<String, Object>>> response) {
                 if (response.isSuccessful()) {
-                    smartphones.setValue(response.body());
+                    tablets.setValue(response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Map<String, Object>>> call, Throwable t) {
-                smartphones.setValue(new ArrayList<>());
+                tablets.setValue(new ArrayList<>());
             }
         });
     }

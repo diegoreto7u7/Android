@@ -35,6 +35,4 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:text="Descripción del Producto" />
-
-    <!-- Agrega más vistas según sea necesario -->
 </LinearLayout>

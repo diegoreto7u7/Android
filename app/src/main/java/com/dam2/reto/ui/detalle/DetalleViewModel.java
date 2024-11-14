@@ -1,5 +1,6 @@
 package com.dam2.reto.ui.detalle;
 
+import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -20,20 +21,19 @@ public class DetalleViewModel extends ViewModel {
         return producto;
     }
 
-    public void loadProductoById(int id) {
-        Call<Map<String, Object>> call = RetrofitInstance.getAPI().getProductoById(id);
+    public void loadProductoById(int id, Context context) {
+        Call<Map<String, Object>> call = RetrofitInstance.getAPI(context).getProductoById(id);
         call.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // Convert the Map to Producto object
                     Map<String, Object> responseBody = response.body();
                     Producto productoObj = new Producto();
-                    productoObj.setId((Integer) responseBody.get("id"));
+                    productoObj.setId(((Double) responseBody.get("id")).intValue());
                     productoObj.setNombreProducto((String) responseBody.get("nombre"));
                     productoObj.setPrecioVenta((Double) responseBody.get("precio"));
                     productoObj.setPrecioAlquiler((Double) responseBody.get("precio_alquiler"));
-                    // Set other fields as necessary
+                    productoObj.setDescripcion((String) responseBody.get("descripcion"));
                     producto.setValue(productoObj);
                 } else {
                     // Handle error or product not found

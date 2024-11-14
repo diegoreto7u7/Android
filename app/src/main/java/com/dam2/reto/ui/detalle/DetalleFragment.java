@@ -17,7 +17,7 @@ import com.dam2.reto.ui.modelo.Producto;
 public class DetalleFragment extends Fragment {
 
     private DetalleViewModel mViewModel;
-    private TextView nombreProductoTextView, precioVentaTextView, descripcionTextView; // y otras vistas necesarias
+    private TextView nombreProductoTextView, precioVentaTextView, precioAlquilerTextView, descripcionTextView;
 
     private static final String ARG_PRODUCT_ID = "product_id";
 
@@ -36,6 +36,7 @@ public class DetalleFragment extends Fragment {
 
         nombreProductoTextView = view.findViewById(R.id.nombreProductoTextView);
         precioVentaTextView = view.findViewById(R.id.precioVentaTextView);
+        precioAlquilerTextView = view.findViewById(R.id.precioAlquilerTextView);
         descripcionTextView = view.findViewById(R.id.descripcionTextView);
 
         return view;
@@ -48,14 +49,15 @@ public class DetalleFragment extends Fragment {
 
         if (getArguments() != null) {
             int productId = getArguments().getInt(ARG_PRODUCT_ID);
-            mViewModel.loadProductoById(productId);
+            mViewModel.loadProductoById(productId, getContext());
         }
 
         mViewModel.getProducto().observe(getViewLifecycleOwner(), new Observer<Producto>() {
             @Override
             public void onChanged(Producto producto) {
                 nombreProductoTextView.setText(producto.getNombreProducto());
-                precioVentaTextView.setText(String.valueOf(producto.getPrecioVenta()));
+                precioVentaTextView.setText("Precio Venta: €" + producto.getPrecioVenta());
+                precioAlquilerTextView.setText("Precio Alquiler: €" + producto.getPrecioAlquiler());
                 descripcionTextView.setText(producto.getDescripcion());
             }
         });

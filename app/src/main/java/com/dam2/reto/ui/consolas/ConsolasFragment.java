@@ -33,14 +33,23 @@ public class ConsolasFragment extends Fragment {
         requireActivity().setTitle("Consolas");
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = new ViewModelProvider(this).get(ConsolasViewModel.class);
+        ConsolasViewModelFactory factory = new ConsolasViewModelFactory(requireContext());
+        mViewModel = new ViewModelProvider(this, factory).get(ConsolasViewModel.class);
 
         // Configuración de RecyclerView para consolas
         RecyclerView recyclerViewConsolas = view.findViewById(R.id.recyclerViewConsolas);
         recyclerViewConsolas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mViewModel.getConsolas().observe(getViewLifecycleOwner(), productos -> {
-            consolasAdapter = new ProductoAdapter(getContext(), productos, productId -> {
-                // Handle item click
+            consolasAdapter = new ProductoAdapter(getContext(), productos, new ProductoAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int productId) {
+                    // Handle item click
+                }
+
+                @Override
+                public void onAddToCartClick(int productId) {
+                    // Handle add to cart click
+                }
             });
             recyclerViewConsolas.setAdapter(consolasAdapter);
         });

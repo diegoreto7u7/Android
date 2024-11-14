@@ -88,7 +88,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_para_ti"
+        android:id="@+id/paraTiFragment"
         android:name="com.dam2.reto.ui.parati.ParaTiFragment"
         android:label="Para Ti"
         tools:layout="@layout/fragment_para_ti">
@@ -96,11 +96,11 @@
         <!-- Acción hacia Detalle -->
         <action
             android:id="@+id/action_paraTiFragment_to_detalleFragment"
-            app:destination="@id/navigation_detalle" />
+            app:destination="@id/detalleFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_detalle"
+        android:id="@+id/detalleFragment"
         android:name="com.dam2.reto.ui.detalle.DetalleFragment"
         android:label="Detalle"
         tools:layout="@layout/fragment_detalle" />

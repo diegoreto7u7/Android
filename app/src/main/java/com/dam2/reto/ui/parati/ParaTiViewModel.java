@@ -1,5 +1,6 @@
 package com.dam2.reto.ui.parati;
 
+import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -20,11 +21,13 @@ public class ParaTiViewModel extends ViewModel {
     private final MutableLiveData<List<Map<String, Object>>> videojuegos = new MutableLiveData<>();
     private final MutableLiveData<List<Map<String, Object>>> consolas = new MutableLiveData<>();
     private final MutableLiveData<List<Map<String, Object>>> smartphones = new MutableLiveData<>();
+    private final Context context;
 
-    public ParaTiViewModel() {
-        loadVideojuegos();
-        loadConsolas();
-        loadSmartphones();
+    public ParaTiViewModel(Context context) {
+        this.context = context;
+        loadVideojuegos(context);
+        loadConsolas(context);
+        loadSmartphones(context);
     }
 
     public LiveData<List<Map<String, Object>>> getVideojuegos() {
@@ -39,8 +42,8 @@ public class ParaTiViewModel extends ViewModel {
         return smartphones;
     }
 
-    private void loadVideojuegos() {
-        API api = RetrofitInstance.getRetrofitInstance().create(API.class);
+    private void loadVideojuegos(Context context) {
+        API api = RetrofitInstance.getRetrofitInstance(context).create(API.class);
         api.getVideojuegos().enqueue(new Callback<List<Map<String, Object>>>() {
             @Override
             public void onResponse(Call<List<Map<String, Object>>> call, Response<List<Map<String, Object>>> response) {
@@ -56,8 +59,8 @@ public class ParaTiViewModel extends ViewModel {
         });
     }
 
-    private void loadConsolas() {
-        API api = RetrofitInstance.getRetrofitInstance().create(API.class);
+    private void loadConsolas(Context context) {
+        API api = RetrofitInstance.getRetrofitInstance(context).create(API.class);
         api.getConsolas().enqueue(new Callback<List<Map<String, Object>>>() {
             @Override
             public void onResponse(Call<List<Map<String, Object>>> call, Response<List<Map<String, Object>>> response) {
@@ -73,8 +76,8 @@ public class ParaTiViewModel extends ViewModel {
         });
     }
 
-    private void loadSmartphones() {
-        API api = RetrofitInstance.getRetrofitInstance().create(API.class);
+    private void loadSmartphones(Context context) {
+        API api = RetrofitInstance.getRetrofitInstance(context).create(API.class);
         api.getSmartphones().enqueue(new Callback<List<Map<String, Object>>>() {
             @Override
             public void onResponse(Call<List<Map<String, Object>>> call, Response<List<Map<String, Object>>> response) {

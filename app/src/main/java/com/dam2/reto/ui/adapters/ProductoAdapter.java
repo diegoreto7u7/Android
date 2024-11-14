@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
 
     public interface OnItemClickListener {
         void onItemClick(int productId);
+        void onAddToCartClick(int productId);
     }
 
     public ProductoAdapter(Context context, List<Map<String, Object>> productos, OnItemClickListener listener) {
@@ -44,7 +46,6 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     @Override
     public void onBindViewHolder(@NonNull ProductoViewHolder holder, int position) {
         Map<String, Object> producto = productos.get(position);
-
         holder.nombreProductoTextView.setText((String) producto.get("nombre_producto"));
         holder.precioProductoTextView.setText("Precio: €" + producto.get("precio_venta"));
 
@@ -66,13 +67,20 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
                         }
                     });
         } else {
-            holder.imagenProductoImageView.setImageResource(R.drawable.kirby1);
+            holder.imagenProductoImageView.setImageResource(R.drawable.hola);
             holder.progressBar.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(v -> {
-            int productId = (Integer) producto.get("id");
+            Object idObj = producto.get("id");
+            int productId = idObj instanceof Double ? ((Double) idObj).intValue() : (Integer) idObj;
             listener.onItemClick(productId);
+        });
+
+        holder.addToCartButton.setOnClickListener(v -> {
+            Object idObj = producto.get("id");
+            int productId = idObj instanceof Double ? ((Double) idObj).intValue() : (Integer) idObj;
+            listener.onAddToCartClick(productId);
         });
     }
 
@@ -86,6 +94,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         TextView precioProductoTextView;
         ImageView imagenProductoImageView;
         ProgressBar progressBar;
+        Button addToCartButton;
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,6 +102,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             precioProductoTextView = itemView.findViewById(R.id.precioProductoTextView);
             imagenProductoImageView = itemView.findViewById(R.id.imagenProductoImageView);
             progressBar = itemView.findViewById(R.id.progressBar);
+            addToCartButton = itemView.findViewById(R.id.addToCartButton);
         }
     }
 }

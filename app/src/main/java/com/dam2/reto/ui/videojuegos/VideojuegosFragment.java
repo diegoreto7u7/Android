@@ -12,37 +12,54 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.dam2.reto.R;
 import com.dam2.reto.ui.adapters.ProductoAdapter;
-import com.dam2.reto.ui.tablets.TabletsViewModel;
 
 public class VideojuegosFragment extends Fragment {
 
-    private TabletsViewModel mViewModel;
-    private ProductoAdapter smartphonesAdapter;
+    private VideojuegosViewModel mViewModel;
+    private ProductoAdapter videojuegosAdapter;
 
     public static VideojuegosFragment newInstance() {
         return new VideojuegosFragment();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_videojuegos, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_videojuegos, container, false);
+        VideojuegosViewModelFactory factory = new VideojuegosViewModelFactory(requireContext());
+        mViewModel = new ViewModelProvider(this, factory).get(VideojuegosViewModel.class);
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = new ViewModelProvider(this).get(TabletsViewModel.class);
+        RecyclerView recyclerViewVideojuegos = view.findViewById(R.id.recyclerViewVideojuegos);
+        if (recyclerViewVideojuegos != null) {
+            recyclerViewVideojuegos.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+            mViewModel.getVideojuegos().observe(getViewLifecycleOwner(), productos -> {
+                videojuegosAdapter = new ProductoAdapter(getContext(), productos, new ProductoAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int productId) {
+                        navigateToProductDetail(productId);
+                    }
 
-        // Configuración de RecyclerView para smartphones
-        RecyclerView recyclerViewSmartphones = view.findViewById(R.id.recyclerViewSmartphones);
-        recyclerViewSmartphones.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mViewModel.getSmartphones().observe(getViewLifecycleOwner(), productos -> {
-            smartphonesAdapter = new ProductoAdapter(getContext(), productos, productId -> {
-                // Handle item click
+                    @Override
+                    public void onAddToCartClick(int productId) {
+                        addToCart(productId);
+                    }
+                });
+                recyclerViewVideojuegos.setAdapter(videojuegosAdapter);
             });
-            recyclerViewSmartphones.setAdapter(smartphonesAdapter);
-        });
+        }
+    }
+
+    private void navigateToProductDetail(int productId) {
+        // Implement navigation to product detail page
+    }
+
+    private void addToCart(int productId) {
+        // Implement logic to add product to cart
     }
 }

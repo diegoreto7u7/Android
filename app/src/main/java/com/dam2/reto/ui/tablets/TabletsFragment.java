@@ -16,7 +16,7 @@ import com.dam2.reto.ui.adapters.ProductoAdapter;
 public class TabletsFragment extends Fragment {
 
     private TabletsViewModel mViewModel;
-    private ProductoAdapter smartphonesAdapter;
+    private ProductoAdapter tabletsAdapter;
 
     public static TabletsFragment newInstance() {
         return new TabletsFragment();
@@ -30,18 +30,28 @@ public class TabletsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        requireActivity().setTitle("Tablets");
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = new ViewModelProvider(this).get(TabletsViewModel.class);
+        TabletsViewModelFactory factory = new TabletsViewModelFactory(requireContext());
+        mViewModel = new ViewModelProvider(this, factory).get(TabletsViewModel.class);
 
-        // Configuración de RecyclerView para smartphones
-        RecyclerView recyclerViewSmartphones = view.findViewById(R.id.recyclerViewSmartphones);
-        recyclerViewSmartphones.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mViewModel.getSmartphones().observe(getViewLifecycleOwner(), productos -> {
-            smartphonesAdapter = new ProductoAdapter(getContext(), productos, productId -> {
-                // Handle item click
+        // Configuración de RecyclerView para tablets
+        RecyclerView recyclerViewTablets = view.findViewById(R.id.recyclerViewSmartphones);
+        recyclerViewTablets.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mViewModel.getTablets().observe(getViewLifecycleOwner(), productos -> {
+            tabletsAdapter = new ProductoAdapter(getContext(), productos, new ProductoAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int productId) {
+                    // Handle item click
+                }
+
+                @Override
+                public void onAddToCartClick(int productId) {
+                    // Handle add to cart click
+                }
             });
-            recyclerViewSmartphones.setAdapter(smartphonesAdapter);
+            recyclerViewTablets.setAdapter(tabletsAdapter);
         });
     }
 }

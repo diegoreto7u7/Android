@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> attemptLogin());
     }
 
-
     private void attemptLogin() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
@@ -54,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         credentials.put("email", email);
         credentials.put("password", password);
 
-        API apiService = RetrofitInstance.getAPI();
+        API apiService = RetrofitInstance.getAPI(this);
         Call<Map<String, String>> call = apiService.authenticateUser(credentials);
 
         call.enqueue(new Callback<Map<String, String>>() {
