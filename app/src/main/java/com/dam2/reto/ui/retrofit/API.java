@@ -43,4 +43,7 @@ public interface API {
 
     @POST("/api/reparacion/nueva")
     Call<ResponseMessage> crearReparacion(@Body ReparacionRequest request);
+
+    @POST("/user/register")
+    Call<Map<String, String>> registerUser(@Body Map<String, String> user);
 }

@@ -33,16 +33,17 @@
         </androidx.cardview.widget.CardView>
 
         <!-- Ícono de perfil al lado derecho del SearchView -->
-        <ImageView
-            android:id="@+id/profileIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:contentDescription="Ícono de perfil"
-            android:src="@drawable/ic_person_outline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+        <ImageButton
+        android:id="@+id/profileIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Ícono de perfil"
+        android:src="@drawable/ic_person_outline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="?attr/selectableItemBackgroundBorderless" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- TabLayout y ViewPager2 para las pestañas -->

@@ -71,8 +71,11 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
                 });
 
         // Configurar eventos de clic
-        holder.itemView.setOnClickListener(v -> listener.onItemClick((int) producto.get("id")));
-        holder.addToCartButton.setOnClickListener(v -> listener.onAddToCartClick((int) producto.get("id")));
+        holder.itemView.setOnClickListener(v -> {
+            Object idObject = producto.get("id");
+            int id = (idObject instanceof Double) ? ((Double) idObject).intValue() : (Integer) idObject;
+            listener.onItemClick(id);
+        });
     }
 
     @Override

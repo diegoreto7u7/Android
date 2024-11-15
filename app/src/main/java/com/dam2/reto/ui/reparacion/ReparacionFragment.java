@@ -50,6 +50,7 @@ public class ReparacionFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        requireActivity().setTitle("Reparacion");
         View view = inflater.inflate(R.layout.fragment_reparacion, container, false);
 
         searchEditText = view.findViewById(R.id.searchEditText);
